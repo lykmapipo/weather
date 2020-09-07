@@ -20,5 +20,9 @@ describe('utils', () => {
     expect(findCity({ name: undefined })).to.be.undefined;
     expect(findCity({ name: 'Unknown' })).to.be.undefined;
     expect(findCity({ name: 'Dar Es Salaam' })).to.be.exist.and.be.an('object');
+    expect(findCity({ name: '252' })).to.be.exist.and.be.an('object');
+    expect(findCity({ name: 'Dar Es Salaam' })).to.be.eql(
+      findCity({ name: '252' })
+    );
   });
 });

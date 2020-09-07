@@ -1,4 +1,4 @@
-import { find } from 'lodash';
+import { find, trim } from 'lodash';
 import { isNotValue, mergeObjects } from '@lykmapipo/common';
 
 import cities from './cities.json';
@@ -50,7 +50,10 @@ export const findCity = (optns) => {
   }
 
   // lookup from city list
-  const city = find(cities, { City: name });
+  const cityName = trim(name);
+  const city = find(cities, ({ City, CityId }) => {
+    return City === cityName || CityId === cityName;
+  });
 
   // return found city
   return city;
