@@ -10,7 +10,7 @@
 [![Code Style](https://badgen.net/badge/code%20style/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
 [![npm version](https://img.shields.io/npm/v/@lykmapipo/weather)](https://www.npmjs.com/package/@lykmapipo/weather)
 
-weather
+Helpers to fetch weather information from well know sources
 
 ## Requirements
 
@@ -26,9 +26,12 @@ npm install @lykmapipo/weather --save
 ## Usage
 
 ```js
-import { example } from '@lykmapipo/weather';
+import { fetchForecasts } from '@lykmapipo/weather';
 
-example(error => { ... });
+const optns = { city: 'Dar Es Salaam' };
+fetchForecasts(optns)
+  .then(forecasts => { ... }) // => [{ weather: 'Light Rain', ... }]
+  .catch(error => { ... });
 ```
 
 ## Testing
