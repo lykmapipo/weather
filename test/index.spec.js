@@ -45,6 +45,22 @@ describe('weather', () => {
       });
   });
 
+  it('should handle error when fetch present forecast', (done) => {
+    nock(BASE_URL)
+      .get('/present.json')
+      .query(true)
+      .reply(200, function onReply() {
+        expect(this.req.headers).to.exist;
+        return createReadStream(`${__dirname}/fixtures/present.json`);
+      });
+
+    fetchPresentForecast({ city: 'Dar' }).catch((error) => {
+      expect(error).to.exist;
+      expect(error.message).to.be.equal('Unknown City');
+      done();
+    });
+  });
+
   it('should fetch week forecasts', (done) => {
     nock(BASE_URL)
       .get('/252_en.json')

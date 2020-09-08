@@ -37,6 +37,9 @@ export const fetchPresentForecast = (optns) => {
 
   // find city
   const presentCity = findCity({ name: city });
+  if (isNotValue(presentCity)) {
+    return Promise.reject(Error('Unknown City'));
+  }
 
   // derive city present forecast url
   const url = 'https://worldweather.wmo.int/en/json/present.json';
