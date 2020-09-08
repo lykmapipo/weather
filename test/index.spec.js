@@ -1,7 +1,11 @@
 import { createReadStream } from 'fs';
 import { expect, nock } from '@lykmapipo/test-helpers';
 
-import { fetchPresentForecast, fetchWeekForecasts } from '../src';
+import {
+  fetchPresentForecast,
+  fetchWeekForecasts,
+  fetchForecasts,
+} from '../src';
 
 const BASE_URL = 'https://worldweather.wmo.int/en/json';
 
@@ -107,6 +111,74 @@ describe('weather', () => {
       });
 
     fetchWeekForecasts({ city: 'Dar' }).catch((error) => {
+      expect(error).to.exist;
+      expect(error.message).to.be.equal('Unknown City');
+      done();
+    });
+  });
+
+  it('should handle error when fetch forecasts', (done) => {
+    nock(BASE_URL)
+      .get('/present.json')
+      .query(true)
+      .reply(200, function onReply() {
+        expect(this.req.headers).to.exist;
+        return createReadStream(`${__dirname}/fixtures/present.json`);
+      });
+
+    nock(BASE_URL)
+      .get('/252_en.json')
+      .query(true)
+      .reply(200, function onReply() {
+        expect(this.req.headers).to.exist;
+        return createReadStream(`${__dirname}/fixtures/252_en.json`);
+      });
+
+    fetchForecasts({ city: 'Dar Es Salaam' })
+      .then((forecasts) => {
+        expect(forecasts).to.exist.and.be.an('array');
+        expect(forecasts[0]).to.exist.and.be.an('object');
+        expect(forecasts[0].country).to.exist.and.be.a('string');
+        expect(forecasts[0].city).to.exist.and.be.a('string');
+        expect(forecasts[0].cityId).to.exist.and.be.a('number');
+        expect(forecasts[0].date).to.exist.and.be.a('date');
+        expect(forecasts[0].weather).to.exist.and.be.a('string');
+        // expect(forecasts[0].temperature).to.exist.and.be.a('number');
+        // expect(forecasts[0].relativeHumidity).to.exist.and.be.a('number');
+        // expect(forecasts[0].pressure).to.exist.and.be.a('number');
+        // expect(forecasts[0].windDirection).to.exist.and.be.a('string');
+        // expect(forecasts[0].windSpeed).to.exist.and.be.a('number');
+        // expect(forecasts[0].sunRiseAt).to.exist.and.be.a('string');
+        // expect(forecasts[0].sunSetAt).to.exist.and.be.a('string');
+        // expect(forecasts[0].moonRiseAt).to.exist.and.be.a('string');
+        // expect(forecasts[0].moonSetAt).to.exist.and.be.a('string');
+        expect(forecasts[0].present).to.be.true;
+        done(null, forecasts);
+      })
+      .catch((error) => {
+        expect(error).to.not.exist;
+        done(error);
+      });
+  });
+
+  it('should fetch forecasts', (done) => {
+    nock(BASE_URL)
+      .get('/present.json')
+      .query(true)
+      .reply(200, function onReply() {
+        expect(this.req.headers).to.exist;
+        return createReadStream(`${__dirname}/fixtures/present.json`);
+      });
+
+    nock(BASE_URL)
+      .get('/252_en.json')
+      .query(true)
+      .reply(200, function onReply() {
+        expect(this.req.headers).to.exist;
+        return createReadStream(`${__dirname}/fixtures/252_en.json`);
+      });
+
+    fetchForecasts({ city: 'Dar' }).catch((error) => {
       expect(error).to.exist;
       expect(error.message).to.be.equal('Unknown City');
       done();

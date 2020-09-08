@@ -1,5 +1,5 @@
-import { isNotValue, mergeObjects } from '@lykmapipo/common';
-import { get } from '@lykmapipo/http-client';
+import { compact, isNotValue, mergeObjects } from '@lykmapipo/common';
+import { get, all } from '@lykmapipo/http-client';
 
 import {
   DEFAULT_REQUEST_HEADERS,
@@ -58,7 +58,7 @@ export const fetchPresentForecast = (optns) => {
  * @function fetchWeekForecasts
  * @name fetchWeekForecasts
  * @description Fetch week forecasts of a given city
- * @param {object} optns Valid options.
+ * @param {object} optns Valid options
  * @param {string} optns.city Valid city name
  * @returns {Promise} promise resolve with week forecasts on success
  * or error on failure.
@@ -99,4 +99,38 @@ export const fetchWeekForecasts = (optns) => {
     // return given city week forecast
     return weekForecasts;
   });
+};
+
+/**
+ * @function fetchForecasts
+ * @name fetchForecasts
+ * @description Fetch present and week forecasts of a given city
+ * @param {object} optns Valid options
+ * @param {string} optns.city Valid city name
+ * @returns {Promise} promise resolve with forecasts on success
+ * or error on failure.
+ * @author lally elias <lallyelias87@mail.com>
+ * @license MIT
+ * @since 0.1.0
+ * @version 0.1.0
+ * @static
+ * @public
+ * @example
+ *
+ * const optns = { city : 'Dar Es Salaam' };
+ * fetchForecasts(optns)
+ *   .then(forecasts => { ... }) //=> [{ weather: 'Light Rain', ... }, ... ]
+ *   .catch(error => { ... });
+ */
+export const fetchForecasts = (optns) => {
+  // prepare tasks
+  const fetchPresent = fetchPresentForecast(optns);
+  const fetchWeek = fetchWeekForecasts(optns);
+
+  // request present & week forecasts
+  return all(fetchPresent, fetchWeek).then(
+    ([presentForecast = {}, weekForecasts = []]) => {
+      return compact([presentForecast, ...weekForecasts]);
+    }
+  );
 };

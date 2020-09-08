@@ -158,7 +158,7 @@ export const normalizePresentForecast = (forecast, city) => {
  * const forecast = { city: { forecast: { forecastDay: [ ... ] } } };
  * const city = { cityId: 252, ... };
  * normalizeWeekForecasts(forecast, city);
- * // => [ { city: 'Dar Es Salaam', weather: 'Light Rain', ... }, ... ]
+ * // => [{ city: 'Dar Es Salaam', weather: 'Light Rain', ... }, ... ]
  */
 export const normalizeWeekForecasts = (forecasts, city) => {
   // collect found week forecasts
