@@ -1,11 +1,11 @@
-import { get as getValue } from 'lodash';
-import { compact, isNotValue, mergeObjects } from '@lykmapipo/common';
+import { isNotValue, mergeObjects } from '@lykmapipo/common';
 import { get } from '@lykmapipo/http-client';
 
 import {
   DEFAULT_REQUEST_HEADERS,
   findCity,
   normalizePresentForecast,
+  normalizeWeekForecasts,
 } from './utils';
 
 /**
@@ -81,19 +81,17 @@ export const fetchWeekForecasts = (optns) => {
   // find city
   const presentCity = findCity({ name: city });
   if (isNotValue(presentCity)) {
-    throw new Error('Unknown City');
+    return Promise.reject(Error('Unknown City'));
   }
 
-  // fetch city week forecasts
+  // derive city week forecast url
   const { cityId } = presentCity;
   const url = `https://worldweather.wmo.int/en/json/${cityId}_en.json`;
-  return get(url, options).then((cityForecast) => {
-    // merge found week forecast
-    const weekForecasts = compact(
-      [].concat(getValue(cityForecast, 'city.forecast.forecastDay'))
-    );
 
-    // TODO: normalize & convert
+  // request city week forecasts
+  return get(url, options).then((forecasts) => {
+    // normalize given city week forecasts
+    const weekForecasts = normalizeWeekForecasts(forecasts, presentCity);
 
     // return given city week forecast
     return weekForecasts;
