@@ -106,7 +106,7 @@ export const findCity = (optns) => {
  * const forecast = { present: { '193': { cityId: 252, ... } } };
  * const city = { cityId: 252, ... };
  * normalizePresentForecast(forecast, city);
- * // =>
+ * // => { city: 'Dar Es Salaam', weather: 'Light Rain', ... }
  */
 export const normalizePresentForecast = (forecast, city) => {
   // collect found present forecast
@@ -122,7 +122,7 @@ export const normalizePresentForecast = (forecast, city) => {
   });
 
   // normalize & convert
-  presentForecast = mergeObjects(city, {
+  presentForecast = mergeObjects(presentCity, {
     date: parseDate(getValue(presentForecast, 'issue'), 'YYYYMMDDHH'),
     weather: getValue(presentForecast, 'wxdesc'),
     temperature: toNumber(getValue(presentForecast, 'temp')), //= > °C
@@ -138,4 +138,59 @@ export const normalizePresentForecast = (forecast, city) => {
 
   // return given city present forecast
   return presentForecast;
+};
+
+/**
+ * @function normalizeWeekForecasts
+ * @name normalizeWeekForecasts
+ * @description Normalize present city forecast
+ * @param {object} forecasts Valid week forecasts
+ * @param {object} city Valid city details
+ * @returns {object[]} normalize week city forecast
+ * @author lally elias <lallyelias87@mail.com>
+ * @license MIT
+ * @since 0.1.0
+ * @version 0.1.0
+ * @static
+ * @public
+ * @example
+ *
+ * const forecast = { city: { forecast: { forecastDay: [ ... ] } } };
+ * const city = { cityId: 252, ... };
+ * normalizeWeekForecasts(forecast, city);
+ * // => [ { city: 'Dar Es Salaam', weather: 'Light Rain', ... }, ... ]
+ */
+export const normalizeWeekForecasts = (forecasts, city) => {
+  // collect found week forecasts
+  const {
+    city: {
+      forecast: { forecastDay },
+    },
+  } = mergeObjects({ forecast: { forecastDay: [] } }, forecasts);
+  const weekForecasts = compact([].concat(forecastDay));
+
+  // ensure present city
+  const presentCity = mergeObjects(city);
+
+  // normalize & convert
+  const cityWeekForecasts = map(weekForecasts, (forecast) => {
+    return mergeObjects(presentCity, {
+      date: parseDate(getValue(forecast, 'forecastDate'), 'YYYY-MM-DD'),
+      weather: getValue(forecast, 'weather'),
+      temperature: toNumber(getValue(forecast, 'temp')), //= > °C
+      minimumTemperature: toNumber(getValue(forecast, 'minTemp')), //= > °C
+      maximumTemperature: toNumber(getValue(forecast, 'maxTemp')), //= > °C
+      relativeHumidity: toNumber(getValue(forecast, 'rh')),
+      windDirection: getValue(forecast, 'wd'),
+      windSpeed: (toNumber(getValue(forecast, 'ws')) * 18) / 5, //= > km/h
+      sunRiseAt: getValue(forecast, 'sunrise'),
+      sunSetAt: getValue(forecast, 'sunset'),
+      moonRiseAt: getValue(forecast, 'moonrise'),
+      moonSetAt: getValue(forecast, 'moonset'),
+      present: false,
+    });
+  });
+
+  // return given city week forecast
+  return cityWeekForecasts;
 };

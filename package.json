@@ -91,7 +91,7 @@
   },
   "peerDependencies": {},
   "dependencies": {
-    "@lykmapipo/common": ">=0.41.0",
+    "@lykmapipo/common": ">=0.41.1",
     "@lykmapipo/http-client": ">=0.4.18",
     "lodash": ">=4.17.20"
   },

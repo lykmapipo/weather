@@ -5,10 +5,12 @@ import {
   DEFAULT_REQUEST_HEADERS,
   findCity,
   normalizePresentForecast,
+  normalizeWeekForecasts,
 } from '../src/utils';
 
 import presentCity from './fixtures/city.json';
 import presentForecast from './fixtures/present.json';
+import weekForecasts from './fixtures/252_en.json';
 
 describe('utils', () => {
   it('should provide default request headers', () => {
@@ -38,7 +40,7 @@ describe('utils', () => {
     );
   });
 
-  it('should normalize present city forecats', () => {
+  it('should normalize present city forecast', () => {
     const city = mergeObjects(presentCity);
     const forecast = mergeObjects(presentForecast);
 
@@ -59,5 +61,29 @@ describe('utils', () => {
     // expect(normalizedForecast.moonRiseAt).to.exist.and.be.a('string');
     // expect(normalizedForecast.moonSetAt).to.exist.and.be.a('string');
     expect(normalizedForecast.present).to.be.true;
+  });
+
+  it('should normalize week city forecasts', () => {
+    const city = mergeObjects(presentCity);
+    const forecasts = mergeObjects(weekForecasts);
+
+    const normalizedForecasts = normalizeWeekForecasts(forecasts, city);
+    expect(normalizedForecasts).to.exist.and.be.an('array');
+    expect(normalizedForecasts[0]).to.exist.and.be.an('object');
+    expect(normalizedForecasts[0].country).to.exist.and.be.a('string');
+    expect(normalizedForecasts[0].city).to.exist.and.be.a('string');
+    expect(normalizedForecasts[0].cityId).to.exist.and.be.a('number');
+    expect(normalizedForecasts[0].date).to.exist.and.be.a('date');
+    expect(normalizedForecasts[0].weather).to.exist.and.be.a('string');
+    // expect(normalizedForecasts[0].temperature).to.exist.and.be.a('number');
+    // expect(normalizedForecasts[0].relativeHumidity).to.exist.and.be.a('number');
+    // expect(normalizedForecasts[0].pressure).to.exist.and.be.a('number');
+    // expect(normalizedForecasts[0].windDirection).to.exist.and.be.a('string');
+    // expect(normalizedForecasts[0].windSpeed).to.exist.and.be.a('number');
+    // expect(normalizedForecasts[0].sunRiseAt).to.exist.and.be.a('string');
+    // expect(normalizedForecasts[0].sunSetAt).to.exist.and.be.a('string');
+    // expect(normalizedForecasts[0].moonRiseAt).to.exist.and.be.a('string');
+    // expect(normalizedForecasts[0].moonSetAt).to.exist.and.be.a('string');
+    expect(normalizedForecasts[0].present).to.be.false;
   });
 });
