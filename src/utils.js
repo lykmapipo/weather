@@ -49,6 +49,7 @@ export const findCity = (optns) => {
     return undefined;
   }
 
+  // TODO: normalize cities data
   // lookup from city list
   const cityName = trim(name);
   const city = find(cities, ({ City, CityId }) => {

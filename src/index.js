@@ -1,5 +1,5 @@
-import { find, values } from 'lodash';
-import { compact, mergeObjects } from '@lykmapipo/common';
+import { find, get as getValue, values } from 'lodash';
+import { compact, isNotValue, mergeObjects } from '@lykmapipo/common';
 import { get } from '@lykmapipo/http-client';
 
 import { DEFAULT_REQUEST_HEADERS, findCity } from './utils';
@@ -22,7 +22,7 @@ import { DEFAULT_REQUEST_HEADERS, findCity } from './utils';
  *
  * const optns = { city : 'Dar Es Salaam' };
  * fetchPresentForecast(optns)
- *   .then(forecast => { ... }) //=> [{ weather: 'Light Rain', ... }, ... ]
+ *   .then(forecast => { ... }) //=> { weather: 'Light Rain', ... }
  *   .catch(error => { ... });
  */
 export const fetchPresentForecast = (optns) => {
@@ -36,6 +36,7 @@ export const fetchPresentForecast = (optns) => {
 
   // fetch city present forecast
   const url = 'https://worldweather.wmo.int/en/json/present.json';
+  // request present forecasts
   return get(url, options).then(({ present = {} }) => {
     // merge found present forecast
     const presentForecasts = compact([].concat(values(present)));
@@ -44,9 +45,10 @@ export const fetchPresentForecast = (optns) => {
       return String(cityForecast.cityId) === String(presentCity.CityId);
     });
 
+    // TODO: handle unknown city
     // TODO: normalize & convert
 
-    // return present forecast
+    // return given city present forecast
     return presentCityForecast;
   });
 };
@@ -54,10 +56,10 @@ export const fetchPresentForecast = (optns) => {
 /**
  * @function fetchWeekForecasts
  * @name fetchWeekForecasts
- * @description Fetch five(5) days forecasts of a given city
+ * @description Fetch week forecasts of a given city
  * @param {object} optns Valid options.
  * @param {string} optns.city Valid city name
- * @returns {Promise} promise resolve with forecasts on success
+ * @returns {Promise} promise resolve with week forecasts on success
  * or error on failure.
  * @author lally elias <lallyelias87@mail.com>
  * @license MIT
@@ -73,5 +75,29 @@ export const fetchPresentForecast = (optns) => {
  *   .catch(error => { ... });
  */
 export const fetchWeekForecasts = (optns) => {
-  return get(optns);
+  // normalize options
+  const { city, ...options } = mergeObjects(optns, {
+    headers: DEFAULT_REQUEST_HEADERS,
+  });
+
+  // find city
+  const presentCity = findCity({ name: city });
+  if (isNotValue(presentCity)) {
+    throw new Error('Unknown City');
+  }
+
+  // fetch city week forecasts
+  const cityId = presentCity.CityId;
+  const url = `https://worldweather.wmo.int/en/json/${cityId}_en.json`;
+  return get(url, options).then((cityForecast) => {
+    // merge found week forecast
+    const weekForecasts = compact(
+      [].concat(getValue(cityForecast, 'city.forecast.forecastDay'))
+    );
+
+    // TODO: normalize & convert
+
+    // return given city week forecast
+    return weekForecasts;
+  });
 };
