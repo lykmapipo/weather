@@ -1,8 +1,12 @@
-import { find, get as getValue, values } from 'lodash';
+import { get as getValue } from 'lodash';
 import { compact, isNotValue, mergeObjects } from '@lykmapipo/common';
 import { get } from '@lykmapipo/http-client';
 
-import { DEFAULT_REQUEST_HEADERS, findCity } from './utils';
+import {
+  DEFAULT_REQUEST_HEADERS,
+  findCity,
+  normalizePresentForecast,
+} from './utils';
 
 /**
  * @function fetchPresentForecast
@@ -34,19 +38,13 @@ export const fetchPresentForecast = (optns) => {
   // find city
   const presentCity = findCity({ name: city });
 
-  // fetch city present forecast
+  // derive city present forecast url
   const url = 'https://worldweather.wmo.int/en/json/present.json';
-  // request present forecasts
-  return get(url, options).then(({ present = {} }) => {
-    // merge found present forecast
-    const presentForecasts = compact([].concat(values(present)));
-    // find given city present forecast
-    const presentCityForecast = find(presentForecasts, (cityForecast) => {
-      return String(cityForecast.cityId) === String(presentCity.cityId);
-    });
 
-    // TODO: handle unknown city
-    // TODO: normalize & convert
+  // request city present forecasts
+  return get(url, options).then((forecast) => {
+    // normalize given city present forecast
+    const presentCityForecast = normalizePresentForecast(forecast, presentCity);
 
     // return given city present forecast
     return presentCityForecast;
