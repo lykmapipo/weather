@@ -1,0 +1,22 @@
+{
+  "present": {
+    "193": {
+      "cityId": 252,
+      "stnId": "63894",
+      "stnName": "DAR ES SALAAM INT",
+      "issue": "202009081500",
+      "temp": 31,
+      "rh": 37,
+      "wxdesc": "Partly Cloudy",
+      "wxImageCode": "22",
+      "wd": "ESE",
+      "ws": "8.2",
+      "sundate": "20200908",
+      "sunrise": "06:20",
+      "sunset": "18:21",
+      "moonrise": "",
+      "moonset": "",
+      "daynightcode": "a"
+    }
+  }
+}

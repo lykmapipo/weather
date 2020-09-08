@@ -52,7 +52,9 @@ export const findCity = (optns) => {
   // lookup from city list
   const cityName = trim(name);
   const city = find(cities, ({ City, CityId }) => {
-    return City === cityName || CityId === cityName;
+    return (
+      String(City) === String(cityName) || String(CityId) === String(cityName)
+    );
   });
 
   // return found city

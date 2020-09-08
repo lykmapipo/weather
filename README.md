@@ -30,7 +30,7 @@ import { fetchForecasts } from '@lykmapipo/weather';
 
 const optns = { city: 'Dar Es Salaam' };
 fetchForecasts(optns)
-  .then(forecasts => { ... }) // => [{ weather: 'Light Rain', ... }]
+  .then(forecasts => { ... }) // => [{ weather: 'Light Rain', ... }, ... ]
   .catch(error => { ... });
 ```
 

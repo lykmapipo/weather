@@ -1,0 +1,254 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "WWIS city JSON Schema",
+  "description": "WWIS city information,  forecast and climatological data",
+  "type": "object",
+  "city": {
+    "type": "object",
+    "properties": {
+      "lang": {
+        "description": "language code",
+        "type": "string"
+      },
+      "cityName": {
+        "description": "city name",
+        "type": "string"
+      },
+      "cityLatitude": {
+        "description": "latitude of city",
+        "type": "string"
+      },
+      "cityLongitude": {
+        "description": "longitude of city",
+        "type": "string"
+      },
+      "cityId": {
+        "description": "city id",
+        "type": "integer"
+      },
+      "isCapital": {
+        "description": "indicate whether the city is capital",
+        "type": "boolean"
+      },
+      "stationName": {
+        "description": "station name",
+        "type": "string"
+      },
+      "tourismURL": {
+        "description": "the URL of Tourism Board",
+        "type": "string"
+      },
+      "tourismBoardName": {
+        "description": "Tourism Board name",
+        "type": "string"
+      },
+      "isDep": {
+        "description": "indicate whether the city is Dependent Territory",
+        "type": "boolean"
+      },
+      "timeZone": {
+        "description": "time zone",
+        "type": "string"
+      },
+      "isDST": {
+        "description": "indicate whether the city is in DST",
+        "type": "string"
+      },
+      "member": {
+        "type": "object",
+        "properties": {
+          "memId": {
+            "description": "member id",
+            "type": "integer"
+          },
+          "memName": {
+            "description": "member name",
+            "type": "string"
+          },
+          "url": {
+            "description": "the URL for the NMHS of the member",
+            "type": "string"
+          },
+          "orgName": {
+            "description": "name for the NMHS of the member",
+            "type": "string"
+          },
+          "logo": {
+            "description": "logo file name",
+            "type": "string"
+          },
+          "ra": {
+            "description": "region",
+            "type": "integer"
+          }
+        },
+        "required": ["memId", "memName", "ra"]
+      },
+      "forecast": {
+        "type": "object",
+        "properties": {
+          "issueDate": {
+            "description": "forecast issue date and time",
+            "type": "string"
+          },
+          "timeZone": {
+            "description": "Type of the forecast issue date and time",
+            "type": "string"
+          },
+          "forecastDay": {
+            "description": "all forecast information",
+            "type": "array",
+            "item": {
+              "type": "object",
+              "properties": {
+                "forecastDate": {
+                  "description": "forecast date",
+                  "type": "string"
+                },
+                "wxdesc": {
+                  "description": "weather description in detailed",
+                  "type": "string"
+                },
+                "weather": {
+                  "description": "weather description",
+                  "type": "string"
+                },
+                "minTemp": {
+                  "description": "minimum temperature in Celsius",
+                  "type": "number"
+                },
+                "maxTemp": {
+                  "description": "maximum temperature in Celsius",
+                  "type": "number"
+                },
+                "minTempF": {
+                  "description": "minimum temperature in Fahrenheit",
+                  "type": "number"
+                },
+                "maxTempF": {
+                  "description": "maximum temperature in Fahrenheit",
+                  "type": "number"
+                },
+                "weatherIcon": {
+                  "description": "weather icon number, please refer to http://worldweather.wmo.int/schema/WWISWeatherIconTable.pdf",
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "climate": {
+        "type": "object",
+        "properties": {
+          "raintype": {
+            "description": "rainfall or precipitation (both rain and snow)",
+            "type": "string"
+          },
+          "raindef": {
+            "description": "minimum precipitation for the definition of mean number of precipitation days",
+            "type": "number"
+          },
+          "rainunit": {
+            "description": "unit for minimum precipitation",
+            "type": "string"
+          },
+          "datab": {
+            "description": "the beginning of year period of climatological information",
+            "type": "integer"
+          },
+          "datae": {
+            "description": "the end of year period of climatological information",
+            "type": "integer"
+          },
+          "tempb": {
+            "description": "the beginning of year period of climatological information (temperature only)",
+            "type": "integer"
+          },
+          "tempe": {
+            "description": "the end of year period of climatological information (temperature only)",
+            "type": "integer"
+          },
+          "rdayb": {
+            "description": "the beginning of year period of climatological information (precipitation days only)",
+            "type": "integer"
+          },
+          "rdaye": {
+            "description": "the end of year period of climatological information (precipitation days only)",
+            "type": "integer"
+          },
+          "rainfallb": {
+            "description": "the beginning of year period of climatological information (precipitation only)",
+            "type": "integer"
+          },
+          "rainfalle": {
+            "description": "the end of year period of climatological information (precipitation only)",
+            "type": "integer"
+          },
+          "climatefromclino": {
+            "description": "the date for getting climatological information from CLINO",
+            "type": "string"
+          },
+          "climateMonth": {
+            "description": "all climatogical information",
+            "type": "array",
+            "item": {
+              "type": "object",
+              "properties": {
+                "month": {
+                  "description": "month",
+                  "type": "integer"
+                },
+                "maxTemp": {
+                  "description": "mean daily maximum temperature in Celsius",
+                  "type": "number"
+                },
+                "minTemp": {
+                  "description": "mean daily minimum temperature in Celsius",
+                  "type": "number"
+                },
+                "meanTemp": {
+                  "description": "mean daily temperature in in Celsius",
+                  "type": "number"
+                },
+                "maxTempF": {
+                  "description": "mean daily maximum temperature in Fahrenheit",
+                  "type": "number"
+                },
+                "minTempF": {
+                  "description": "mean daily minimum temperature in Fahrenheit",
+                  "type": "number"
+                },
+                "meanTempF": {
+                  "description": "mean daily temperature in in Fahrenheit",
+                  "type": "number"
+                },
+                "raindays": {
+                  "description": "mean number of precipitation days",
+                  "type": "number"
+                },
+                "rainfall": {
+                  "description": "mean total precipitation",
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "lang",
+    "cityName",
+    "cityLatitude",
+    "cityLongitude",
+    "cityId",
+    "isCapital",
+    "stationName",
+    "isDep",
+    "timeZone",
+    "isDST",
+    "member"
+  ]
+}
