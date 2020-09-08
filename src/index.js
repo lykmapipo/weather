@@ -42,7 +42,7 @@ export const fetchPresentForecast = (optns) => {
     const presentForecasts = compact([].concat(values(present)));
     // find given city present forecast
     const presentCityForecast = find(presentForecasts, (cityForecast) => {
-      return String(cityForecast.cityId) === String(presentCity.CityId);
+      return String(cityForecast.cityId) === String(presentCity.cityId);
     });
 
     // TODO: handle unknown city
@@ -87,7 +87,7 @@ export const fetchWeekForecasts = (optns) => {
   }
 
   // fetch city week forecasts
-  const cityId = presentCity.CityId;
+  const { cityId } = presentCity;
   const url = `https://worldweather.wmo.int/en/json/${cityId}_en.json`;
   return get(url, options).then((cityForecast) => {
     // merge found week forecast

@@ -1,7 +1,29 @@
-import { find, trim } from 'lodash';
+import { get as getValue, find, map, toNumber, trim } from 'lodash';
 import { isNotValue, mergeObjects } from '@lykmapipo/common';
 
-import cities from './cities.json';
+import knownCities from './cities.json';
+
+/**
+ * @constant CITIES
+ * @name CITIES
+ * @description Well known cities for weather forecasts
+ * @author lally elias <lallyelias87@mail.com>
+ * @license MIT
+ * @since 0.1.0
+ * @version 0.1.0
+ * @static
+ * @private
+ * @ignore
+ */
+export const CITIES = map(knownCities, (knownCity) => {
+  // obtain and normalize city data
+  const country = getValue(knownCity, 'Country');
+  const city = getValue(knownCity, 'City');
+  const cityId = toNumber(getValue(knownCity, 'CityId'));
+
+  // compact and return city data
+  return mergeObjects({ country, city, cityId });
+});
 
 /**
  * @constant DEFAULT_REQUEST_HEADERS
@@ -49,46 +71,14 @@ export const findCity = (optns) => {
     return undefined;
   }
 
-  // TODO: normalize cities data
-  // lookup from city list
+  // lookup given city from well known cities
   const cityName = trim(name);
-  const city = find(cities, ({ City, CityId }) => {
+  const foundCity = find(CITIES, ({ city, cityId }) => {
     return (
-      String(City) === String(cityName) || String(CityId) === String(cityName)
+      String(city) === String(cityName) || String(cityId) === String(cityName)
     );
   });
 
   // return found city
-  return city;
-};
-
-/**
- * @function wwisLinkFor
- * @name wwisLinkFor
- * @description Generate world weather information service for a given city
- * @param {object} optns Valid options
- * @param {object} optns.name Valid city name
- * @returns {string|undefined} city link or undefined
- * @author lally elias <lallyelias87@mail.com>
- * @license MIT
- * @since 0.1.0
- * @version 0.1.0
- * @static
- * @public
- * @example
- *
- * wwisLinkFor({ name : 'Dar Es Salaam' });
- * // => https://worldweather.wmo.int/en/json/252_en.json
- */
-export const wwisLinkFor = (optns) => {
-  // find a city
-  const { CityId } = findCity(optns) || {};
-
-  // ignore
-  if (isNotValue(CityId)) {
-    return undefined;
-  }
-
-  // return wwis link
-  return `https://worldweather.wmo.int/en/json/${CityId}_en.json`;
+  return foundCity;
 };
