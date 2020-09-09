@@ -1,0 +1,33 @@
+#### 0.1.0 (2020-09-09)
+
+##### Chores
+
+- **deps:**
+  - recorect used pkg versions ([c50431f7](https://github.com/lykmapipo/weather/commit/c50431f73ec71c47f8d51c78c2910845b7cd0f65))
+  - sync packages info ([c8860ac3](https://github.com/lykmapipo/weather/commit/c8860ac3ff9abc27079f0987b95cf6b2f03faa88))
+
+##### Documentation Changes
+
+- **readme:** update usage docs ([2fa99ec3](https://github.com/lykmapipo/weather/commit/2fa99ec32dc25f17eec536d73769221a05f326be))
+
+##### New Features
+
+- fetch present & week forecasts ([bea901e7](https://github.com/lykmapipo/weather/commit/bea901e7af02cd6008078d293edd95e45ff40c04))
+- add cities list ([2b7a7f03](https://github.com/lykmapipo/weather/commit/2b7a7f03299acf356f0af49f160dbd23fc7f7424))
+- setup & initialize ([b1594fc0](https://github.com/lykmapipo/weather/commit/b1594fc08055e8c25d697c0e79a15f9cd7fde9ef))
+- **utils:**
+  - normalize week forecasts ([cb00190c](https://github.com/lykmapipo/weather/commit/cb00190c68d3b2e2bb67b0584ac2f2a071a7c3ec))
+  - normalize present weather ([5ac40332](https://github.com/lykmapipo/weather/commit/5ac40332ac9a31cbe754011294a9c62f68f540b2))
+  - generate wwis link for a city ([bde42e33](https://github.com/lykmapipo/weather/commit/bde42e33f1a44b034bc9d4d6c13288915d8276c9))
+  - lookup for city by well known name and id ([6068451f](https://github.com/lykmapipo/weather/commit/6068451fb1974d0c6bb0a1a58c56b75037f5faf2))
+  - lookup for city details ([f91d409e](https://github.com/lykmapipo/weather/commit/f91d409e6f59b9df0a6e661c4278710328b56c3a))
+- **forecast:**
+  - fetch week forecasts ([64f64179](https://github.com/lykmapipo/weather/commit/64f641795d2c0bf96cde4d235574cd1e1d116ccb))
+  - fetch present forecasts ([8f3c2b6d](https://github.com/lykmapipo/weather/commit/8f3c2b6de38c81bccdb14597bf102e8b26475518))
+
+##### Refactors
+
+- handle unknown city ([11d6a05e](https://github.com/lykmapipo/weather/commit/11d6a05e8d322d39524ead3593bb4ca1f05f0db7))
+- normalize fetched present forecasts ([08306650](https://github.com/lykmapipo/weather/commit/083066505c0f6d53ddbebf878b972a73bacd3fd9))
+- normalize fetched present forecast ([026dca1e](https://github.com/lykmapipo/weather/commit/026dca1e2a9eae36ec51f3cc0a471593d255b585))
+- **utils:** normalize well known cities data ([30725c48](https://github.com/lykmapipo/weather/commit/30725c48b23bc7fc9cdd1bd850e20e1c1909b858))

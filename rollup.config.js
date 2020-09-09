@@ -1,4 +1,5 @@
 import { keys } from 'lodash';
+import json from '@rollup/plugin-json';
 import pkg from './package.json';
 
 export default [
@@ -14,7 +15,8 @@ export default [
         preferConst: true,
         strict: true,
       },
-      { file: pkg.module, format: 'es' },
+      { file: pkg.module, format: 'es', preferConst: true },
     ],
+    plugins: [json({ preferConst: true })],
   },
 ];

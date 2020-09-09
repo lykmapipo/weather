@@ -129,7 +129,7 @@ export const fetchForecasts = (optns) => {
 
   // request present & week forecasts
   return all(fetchPresent, fetchWeek).then(
-    ([presentForecast = {}, weekForecasts = []]) => {
+    ([presentForecast, weekForecasts]) => {
       return compact([presentForecast, ...weekForecasts]);
     }
   );

@@ -46,7 +46,7 @@ describe('utils', () => {
 
     const normalizedForecast = normalizePresentForecast(forecast, city);
     expect(normalizedForecast).to.exist.and.be.an('object');
-    expect(normalizedForecast.country).to.exist.and.be.a('string');
+    // expect(normalizedForecast.country).to.exist.and.be.a('string');
     expect(normalizedForecast.city).to.exist.and.be.a('string');
     expect(normalizedForecast.cityId).to.exist.and.be.a('number');
     expect(normalizedForecast.date).to.exist.and.be.a('date');
@@ -70,7 +70,7 @@ describe('utils', () => {
     const normalizedForecasts = normalizeWeekForecasts(forecasts, city);
     expect(normalizedForecasts).to.exist.and.be.an('array');
     expect(normalizedForecasts[0]).to.exist.and.be.an('object');
-    expect(normalizedForecasts[0].country).to.exist.and.be.a('string');
+    // expect(normalizedForecasts[0].country).to.exist.and.be.a('string');
     expect(normalizedForecasts[0].city).to.exist.and.be.a('string');
     expect(normalizedForecasts[0].cityId).to.exist.and.be.a('number');
     expect(normalizedForecasts[0].date).to.exist.and.be.a('date');

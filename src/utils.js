@@ -6,7 +6,7 @@ import {
   parseDate,
 } from '@lykmapipo/common';
 
-import knownCities from './cities.json';
+import KNOWN_CITIES from './cities.json';
 
 /**
  * @constant CITIES
@@ -20,14 +20,12 @@ import knownCities from './cities.json';
  * @private
  * @ignore
  */
-export const CITIES = map(knownCities, (knownCity) => {
+export const CITIES = map(KNOWN_CITIES, (knownCity) => {
   // obtain and normalize city data
-  const country = getValue(knownCity, 'Country');
-  const city = getValue(knownCity, 'City');
-  const cityId = toNumber(getValue(knownCity, 'CityId'));
+  const [cityId, city] = knownCity.split(':');
 
   // compact and return city data
-  return mergeObjects({ country, city, cityId });
+  return mergeObjects({ city, cityId: toNumber(cityId) });
 });
 
 /**
