@@ -60,7 +60,7 @@
     "@commitlint/cli": "^9.1.2",
     "@commitlint/config-conventional": "^9.1.2",
     "@commitlint/travis-cli": "^9.1.2",
-    "@lykmapipo/test-helpers": "^0.6.0",
+    "@lykmapipo/test-helpers": "^0.6.1",
     "@rollup/plugin-json": "^4.1.0",
     "chai": "^4.2.0",
     "commitizen": "^4.2.1",
@@ -92,8 +92,8 @@
   },
   "peerDependencies": {},
   "dependencies": {
-    "@lykmapipo/common": ">=0.41.1",
-    "@lykmapipo/http-client": ">=0.4.18",
+    "@lykmapipo/common": ">=0.41.2",
+    "@lykmapipo/http-client": ">=0.4.19",
     "lodash": ">=4.17.20"
   },
   "engines": {
