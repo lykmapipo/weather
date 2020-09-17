@@ -1,3 +1,13 @@
+#### 0.2.0 (2020-09-17)
+
+##### Chores
+
+- **deps:** use latest version ([07e0579d](https://github.com/lykmapipo/weather/commit/07e0579d0f9ece19717471d6c7492cafa2077fcd))
+
+##### Bug Fixes
+
+- bad http request ([7bb7b683](https://github.com/lykmapipo/weather/commit/7bb7b683c2fa8532cd3f7e30d0db1837cb604c7e))
+
 #### 0.1.1 (2020-09-10)
 
 ##### Chores
