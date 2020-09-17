@@ -34,6 +34,10 @@ fetchForecasts(optns)
   .catch(error => { ... });
 ```
 
+## Supported Sources
+
+- [World Weather Information Service](https://worldweather.wmo.int/en/home.html)
+
 ## Testing
 
 - Clone this repository
