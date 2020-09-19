@@ -36,22 +36,22 @@ fetchForecasts(optns)
 
 ## Forecast Schema
 
-| Name               | Type   | Description                       |
-| ------------------ | ------ | --------------------------------- |
-| date               | `date` | Forecast date                     |
-| issuedAt           | `date` | Forecast issued date and time     |
-| weather            | `date` | Weather description               |
-| temperature        | `date` | Temperature in Celsius            |
-| minimumTemperature | `date` | Minimum temperature in Celsius    |
-| maximumTemperature | `date` | Maximum temperature in Celsius    |
-| relativeHumidity   | `date` | Relative humidity                 |
-| windDirection      | `date` | Wind direstion                    |
-| windSpeed          | `date` | Wind speed in `km/h`              |
-| sunRiseAt          | `date` | Sun rise time                     |
-| sunSetAt           | `date` | Sun set time                      |
-| moonRiseAt         | `date` | Moon rise time                    |
-| moonSetAt          | `date` | Moon set time                     |
-| present            | `date` | Flag whether its present forecast |
+| Name               | Type      | Description                       |
+| ------------------ | --------- | --------------------------------- |
+| issuedAt           | `date`    | Forecast issued date and time     |
+| date               | `date`    | Forecast date                     |
+| weather            | `string`  | Weather description               |
+| temperature        | `number`  | Temperature in Celsius            |
+| minimumTemperature | `number`  | Minimum temperature in Celsius    |
+| maximumTemperature | `number`  | Maximum temperature in Celsius    |
+| relativeHumidity   | `number`  | Relative humidity                 |
+| windDirection      | `string`  | Wind direstion                    |
+| windSpeed          | `number`  | Wind speed in `km/h`              |
+| sunRiseAt          | `date`    | Sun rise time                     |
+| sunSetAt           | `date`    | Sun set time                      |
+| moonRiseAt         | `date`    | Moon rise time                    |
+| moonSetAt          | `date`    | Moon set time                     |
+| present            | `boolean` | Flag whether its present forecast |
 
 ## Supported Sources
 
