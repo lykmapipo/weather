@@ -34,6 +34,25 @@ fetchForecasts(optns)
   .catch(error => { ... });
 ```
 
+## Forecast Schema
+
+| Name               | Type   | Description                       |
+| ------------------ | ------ | --------------------------------- |
+| date               | `date` | Forecast date                     |
+| issuedAt           | `date` | Forecast issued date and time     |
+| weather            | `date` | Weather description               |
+| temperature        | `date` | Temperature in Celsius            |
+| minimumTemperature | `date` | Minimum temperature in Celsius    |
+| maximumTemperature | `date` | Maximum temperature in Celsius    |
+| relativeHumidity   | `date` | Relative humidity                 |
+| windDirection      | `date` | Wind direstion                    |
+| windSpeed          | `date` | Wind speed in `km/h`              |
+| sunRiseAt          | `date` | Sun rise time                     |
+| sunSetAt           | `date` | Sun set time                      |
+| moonRiseAt         | `date` | Moon rise time                    |
+| moonSetAt          | `date` | Moon set time                     |
+| present            | `date` | Flag whether its present forecast |
+
 ## Supported Sources
 
 - [World Weather Information Service](https://worldweather.wmo.int/en/home.html)
