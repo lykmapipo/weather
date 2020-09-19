@@ -11,7 +11,7 @@ import {
 /**
  * @function fetchPresentForecast
  * @name fetchPresentForecast
- * @description Fetch present forecast of a given city
+ * @description Fetch present forecast of a given city;
  * @param {object} optns Valid options
  * @param {string} optns.city Valid city name
  * @returns {Promise.<object | Error>} promise resolve with present forecast
