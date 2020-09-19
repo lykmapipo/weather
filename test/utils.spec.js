@@ -4,6 +4,7 @@ import { expect } from '@lykmapipo/test-helpers';
 import {
   DEFAULT_REQUEST_HEADERS,
   findCity,
+  normalizeForecast,
   normalizePresentForecast,
   normalizeWeekForecasts,
 } from '../src/utils';
@@ -40,6 +41,11 @@ describe('utils', () => {
     );
   });
 
+  it('should normalize forecast', () => {
+    const normalizedForecast = normalizeForecast({});
+    expect(normalizedForecast).to.exist.and.be.an('object');
+  });
+
   it('should normalize present city forecast', () => {
     const city = mergeObjects(presentCity);
     const forecast = mergeObjects(presentForecast);
@@ -50,6 +56,7 @@ describe('utils', () => {
     expect(normalizedForecast.city).to.exist.and.be.a('string');
     expect(normalizedForecast.cityId).to.exist.and.be.a('number');
     expect(normalizedForecast.date).to.exist.and.be.a('date');
+    expect(normalizedForecast.issuedAt).to.exist.and.be.a('date');
     expect(normalizedForecast.weather).to.exist.and.be.a('string');
     expect(normalizedForecast.temperature).to.exist.and.be.a('number');
     expect(normalizedForecast.relativeHumidity).to.exist.and.be.a('number');
@@ -74,6 +81,7 @@ describe('utils', () => {
     expect(normalizedForecasts[0].city).to.exist.and.be.a('string');
     expect(normalizedForecasts[0].cityId).to.exist.and.be.a('number');
     expect(normalizedForecasts[0].date).to.exist.and.be.a('date');
+    expect(normalizedForecasts[0].issuedAt).to.exist.and.be.a('date');
     expect(normalizedForecasts[0].weather).to.exist.and.be.a('string');
     // expect(normalizedForecasts[0].temperature).to.exist.and.be.a('number');
     // expect(normalizedForecasts[0].relativeHumidity).to.exist.and.be.a('number');

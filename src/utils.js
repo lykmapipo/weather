@@ -87,6 +87,32 @@ export const findCity = (optns) => {
 };
 
 /**
+ * @function normalizeForecast
+ * @name normalizeForecast
+ * @description Parse and normalize given forecast
+ * @param {object} forecast Valid forecast object
+ * @returns {object} normalized forecast
+ * @author lally elias <lallyelias87@mail.com>
+ * @license MIT
+ * @since 0.3.0
+ * @version 0.1.0
+ * @static
+ * @public
+ * @example
+ *
+ * const forecast = { date: '202009081500', weather: 'Light Rain', ... };
+ * normalizeForecast(forecast);
+ * // => { date: '2020-09-08T15:00:00.000Z', weather: 'Light Rain', ... }
+ */
+export const normalizeForecast = (forecast) => {
+  // ensure forecast
+  const normalizedForecast = mergeObjects(forecast);
+
+  // return given normalized forecast
+  return normalizedForecast;
+};
+
+/**
  * @function normalizePresentForecast
  * @name normalizePresentForecast
  * @description Normalize present city forecast
@@ -121,7 +147,8 @@ export const normalizePresentForecast = (forecast, city) => {
 
   // normalize & convert
   presentForecast = mergeObjects(presentCity, {
-    date: parseDate(getValue(presentForecast, 'issue'), 'YYYYMMDDHH'),
+    date: parseDate(getValue(presentForecast, 'issue'), 'YYYYMMDD'),
+    issuedAt: parseDate(getValue(presentForecast, 'issue'), 'YYYYMMDDHH'),
     weather: getValue(presentForecast, 'wxdesc'),
     temperature: toNumber(getValue(presentForecast, 'temp')), //= > °C
     relativeHumidity: toNumber(getValue(presentForecast, 'rh')),
@@ -162,7 +189,7 @@ export const normalizeWeekForecasts = (forecasts, city) => {
   // collect found week forecasts
   const {
     city: {
-      forecast: { forecastDay },
+      forecast: { issueDate, forecastDay },
     },
   } = mergeObjects({ forecast: { forecastDay: [] } }, forecasts);
   const weekForecasts = compact([].concat(forecastDay));
@@ -174,6 +201,7 @@ export const normalizeWeekForecasts = (forecasts, city) => {
   const cityWeekForecasts = map(weekForecasts, (forecast) => {
     return mergeObjects(presentCity, {
       date: parseDate(getValue(forecast, 'forecastDate'), 'YYYY-MM-DD'),
+      issuedAt: parseDate(issueDate, 'YYYY-MM-DD HH:mm:ss'),
       weather: getValue(forecast, 'weather'),
       temperature: toNumber(getValue(forecast, 'temp')), //= > °C
       minimumTemperature: toNumber(getValue(forecast, 'minTemp')), //= > °C

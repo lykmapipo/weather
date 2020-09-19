@@ -30,6 +30,7 @@ describe('weather', () => {
         expect(forecast.city).to.exist.and.be.a('string');
         expect(forecast.cityId).to.exist.and.be.a('number');
         expect(forecast.date).to.exist.and.be.a('date');
+        expect(forecast.issuedAt).to.exist.and.be.a('date');
         expect(forecast.weather).to.exist.and.be.a('string');
         expect(forecast.temperature).to.exist.and.be.a('number');
         expect(forecast.relativeHumidity).to.exist.and.be.a('number');
@@ -82,6 +83,7 @@ describe('weather', () => {
         expect(forecasts[0].city).to.exist.and.be.a('string');
         expect(forecasts[0].cityId).to.exist.and.be.a('number');
         expect(forecasts[0].date).to.exist.and.be.a('date');
+        expect(forecasts[0].issuedAt).to.exist.and.be.a('date');
         expect(forecasts[0].weather).to.exist.and.be.a('string');
         // expect(forecasts[0].temperature).to.exist.and.be.a('number');
         // expect(forecasts[0].relativeHumidity).to.exist.and.be.a('number');
@@ -142,6 +144,7 @@ describe('weather', () => {
         expect(forecasts[0].city).to.exist.and.be.a('string');
         expect(forecasts[0].cityId).to.exist.and.be.a('number');
         expect(forecasts[0].date).to.exist.and.be.a('date');
+        expect(forecasts[0].issuedAt).to.exist.and.be.a('date');
         expect(forecasts[0].weather).to.exist.and.be.a('string');
         // expect(forecasts[0].temperature).to.exist.and.be.a('number');
         // expect(forecasts[0].relativeHumidity).to.exist.and.be.a('number');
