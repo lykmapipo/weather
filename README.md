@@ -51,7 +51,7 @@ npm install
 - Run example
 
 ```sh
-npm run dev
+npm run examples
 ```
 
 - Then run test
