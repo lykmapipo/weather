@@ -4,7 +4,6 @@ import { expect } from '@lykmapipo/test-helpers';
 import {
   DEFAULT_REQUEST_HEADERS,
   findCity,
-  normalizeForecast,
   normalizePresentForecast,
   normalizeWeekForecasts,
 } from '../src/utils';
@@ -39,11 +38,6 @@ describe('utils', () => {
     expect(findCity({ name: 'Dar Es Salaam' })).to.be.eql(
       findCity({ name: 252 })
     );
-  });
-
-  it('should normalize forecast', () => {
-    const normalizedForecast = normalizeForecast({});
-    expect(normalizedForecast).to.exist.and.be.an('object');
   });
 
   it('should normalize present city forecast', () => {

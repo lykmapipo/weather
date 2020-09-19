@@ -87,38 +87,12 @@ export const findCity = (optns) => {
 };
 
 /**
- * @function normalizeForecast
- * @name normalizeForecast
- * @description Parse and normalize given forecast
- * @param {object} forecast Valid forecast object
- * @returns {object} normalized forecast
- * @author lally elias <lallyelias87@mail.com>
- * @license MIT
- * @since 0.3.0
- * @version 0.1.0
- * @static
- * @public
- * @example
- *
- * const forecast = { date: '202009081500', weather: 'Light Rain', ... };
- * normalizeForecast(forecast);
- * // => { date: '2020-09-08T15:00:00.000Z', weather: 'Light Rain', ... }
- */
-export const normalizeForecast = (forecast) => {
-  // ensure forecast
-  const normalizedForecast = mergeObjects(forecast);
-
-  // return given normalized forecast
-  return normalizedForecast;
-};
-
-/**
  * @function normalizePresentForecast
  * @name normalizePresentForecast
  * @description Normalize present city forecast
  * @param {object} forecast Valid present forecast
  * @param {object} city Valid city details
- * @returns {object} normalize present city forecast
+ * @returns {object} normalized present city forecast
  * @author lally elias <lallyelias87@mail.com>
  * @license MIT
  * @since 0.1.0
@@ -171,7 +145,7 @@ export const normalizePresentForecast = (forecast, city) => {
  * @description Normalize present city forecast
  * @param {object} forecasts Valid week forecasts
  * @param {object} city Valid city details
- * @returns {object[]} normalize week city forecast
+ * @returns {object[]} normalized week city forecast
  * @author lally elias <lallyelias87@mail.com>
  * @license MIT
  * @since 0.1.0

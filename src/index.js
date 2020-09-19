@@ -14,8 +14,8 @@ import {
  * @description Fetch present forecast of a given city
  * @param {object} optns Valid options
  * @param {string} optns.city Valid city name
- * @returns {Promise} promise resolve with present forecast on success
- * or error on failure.
+ * @returns {Promise.<object | Error>} promise resolve with present forecast
+ * on success or error on failure.
  * @author lally elias <lallyelias87@mail.com>
  * @license MIT
  * @since 0.1.0
@@ -60,7 +60,7 @@ export const fetchPresentForecast = (optns) => {
  * @description Fetch week forecasts of a given city
  * @param {object} optns Valid options
  * @param {string} optns.city Valid city name
- * @returns {Promise} promise resolve with week forecasts on success
+ * @returns {Promise.<object[] | Error>} promise resolve with week forecasts on success
  * or error on failure.
  * @author lally elias <lallyelias87@mail.com>
  * @license MIT
@@ -107,7 +107,7 @@ export const fetchWeekForecasts = (optns) => {
  * @description Fetch present and week forecasts of a given city
  * @param {object} optns Valid options
  * @param {string} optns.city Valid city name
- * @returns {Promise} promise resolve with forecasts on success
+ * @returns {Promise.<object[] | Error>} promise resolve with forecasts on success
  * or error on failure.
  * @author lally elias <lallyelias87@mail.com>
  * @license MIT
