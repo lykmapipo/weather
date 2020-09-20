@@ -4,6 +4,7 @@ import { expect } from '@lykmapipo/test-helpers';
 import {
   DEFAULT_REQUEST_HEADERS,
   findCity,
+  parseTime,
   normalizePresentForecast,
   normalizeWeekForecasts,
 } from '../src/utils';
@@ -40,6 +41,46 @@ describe('utils', () => {
     );
   });
 
+  it('should normalize rise and set time', () => {
+    let normalizeDate;
+
+    normalizeDate = parseTime(undefined);
+    expect(normalizeDate).to.be.undefined;
+
+    normalizeDate = parseTime(undefined, undefined);
+    expect(normalizeDate).to.be.undefined;
+
+    normalizeDate = parseTime(new Date('2020-09-08T00:00:00.000Z'), undefined);
+    expect(normalizeDate).to.be.undefined;
+
+    normalizeDate = parseTime(undefined, '06:20');
+    expect(normalizeDate).to.be.undefined;
+
+    normalizeDate = parseTime(undefined, '06');
+    expect(normalizeDate).to.be.undefined;
+
+    normalizeDate = parseTime(undefined, '06:');
+    expect(normalizeDate).to.be.undefined;
+
+    normalizeDate = parseTime(undefined, '20');
+    expect(normalizeDate).to.be.undefined;
+
+    normalizeDate = parseTime(undefined, ':20');
+    expect(normalizeDate).to.be.undefined;
+
+    normalizeDate = parseTime(new Date('2020-09-08T00:00:00.000Z'), '06:');
+    expect(normalizeDate).to.be.undefined;
+
+    normalizeDate = parseTime(new Date('2020-09-08T00:00:00.000Z'), ':20');
+    expect(normalizeDate).to.be.undefined;
+
+    normalizeDate = parseTime('2020-09-08T00:00:90.000Z', '06:20');
+    expect(normalizeDate).to.be.undefined;
+
+    normalizeDate = parseTime(new Date('2020-09-08T00:00:00.000Z'), '06:20');
+    expect(normalizeDate).to.exist.and.be.a('date');
+  });
+
   it('should normalize present city forecast', () => {
     const city = mergeObjects(presentCity);
     const forecast = mergeObjects(presentForecast);
@@ -57,10 +98,10 @@ describe('utils', () => {
     // expect(normalizedForecast.pressure).to.exist.and.be.a('number');
     expect(normalizedForecast.windDirection).to.exist.and.be.a('string');
     expect(normalizedForecast.windSpeed).to.exist.and.be.a('number');
-    expect(normalizedForecast.sunRiseAt).to.exist.and.be.a('string');
-    expect(normalizedForecast.sunSetAt).to.exist.and.be.a('string');
-    // expect(normalizedForecast.moonRiseAt).to.exist.and.be.a('string');
-    // expect(normalizedForecast.moonSetAt).to.exist.and.be.a('string');
+    expect(normalizedForecast.sunRiseAt).to.exist.and.be.a('date');
+    expect(normalizedForecast.sunSetAt).to.exist.and.be.a('date');
+    // expect(normalizedForecast.moonRiseAt).to.exist.and.be.a('date');
+    // expect(normalizedForecast.moonSetAt).to.exist.and.be.a('date');
     expect(normalizedForecast.present).to.be.true;
   });
 
@@ -82,10 +123,10 @@ describe('utils', () => {
     // expect(normalizedForecasts[0].pressure).to.exist.and.be.a('number');
     // expect(normalizedForecasts[0].windDirection).to.exist.and.be.a('string');
     // expect(normalizedForecasts[0].windSpeed).to.exist.and.be.a('number');
-    // expect(normalizedForecasts[0].sunRiseAt).to.exist.and.be.a('string');
-    // expect(normalizedForecasts[0].sunSetAt).to.exist.and.be.a('string');
-    // expect(normalizedForecasts[0].moonRiseAt).to.exist.and.be.a('string');
-    // expect(normalizedForecasts[0].moonSetAt).to.exist.and.be.a('string');
+    // expect(normalizedForecasts[0].sunRiseAt).to.exist.and.be.a('date');
+    // expect(normalizedForecasts[0].sunSetAt).to.exist.and.be.a('date');
+    // expect(normalizedForecasts[0].moonRiseAt).to.exist.and.be.a('date');
+    // expect(normalizedForecasts[0].moonSetAt).to.exist.and.be.a('date');
     expect(normalizedForecasts[0].present).to.be.false;
   });
 });

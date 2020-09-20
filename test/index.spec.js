@@ -37,10 +37,10 @@ describe('weather', () => {
         // expect(forecast.pressure).to.exist.and.be.a('number');
         expect(forecast.windDirection).to.exist.and.be.a('string');
         expect(forecast.windSpeed).to.exist.and.be.a('number');
-        expect(forecast.sunRiseAt).to.exist.and.be.a('string');
-        expect(forecast.sunSetAt).to.exist.and.be.a('string');
-        // expect(forecast.moonRiseAt).to.exist.and.be.a('string');
-        // expect(forecast.moonSetAt).to.exist.and.be.a('string');
+        expect(forecast.sunRiseAt).to.exist.and.be.a('date');
+        expect(forecast.sunSetAt).to.exist.and.be.a('date');
+        // expect(forecast.moonRiseAt).to.exist.and.be.a('date');
+        // expect(forecast.moonSetAt).to.exist.and.be.a('date');
         expect(forecast.present).to.be.true;
         done(null, forecast);
       })
@@ -90,10 +90,10 @@ describe('weather', () => {
         // expect(forecasts[0].pressure).to.exist.and.be.a('number');
         // expect(forecasts[0].windDirection).to.exist.and.be.a('string');
         // expect(forecasts[0].windSpeed).to.exist.and.be.a('number');
-        // expect(forecasts[0].sunRiseAt).to.exist.and.be.a('string');
-        // expect(forecasts[0].sunSetAt).to.exist.and.be.a('string');
-        // expect(forecasts[0].moonRiseAt).to.exist.and.be.a('string');
-        // expect(forecasts[0].moonSetAt).to.exist.and.be.a('string');
+        // expect(forecasts[0].sunRiseAt).to.exist.and.be.a('date');
+        // expect(forecasts[0].sunSetAt).to.exist.and.be.a('date');
+        // expect(forecasts[0].moonRiseAt).to.exist.and.be.a('date');
+        // expect(forecasts[0].moonSetAt).to.exist.and.be.a('date');
         expect(forecasts[0].present).to.be.false;
         done(null, forecasts);
       })
@@ -151,10 +151,10 @@ describe('weather', () => {
         // expect(forecasts[0].pressure).to.exist.and.be.a('number');
         // expect(forecasts[0].windDirection).to.exist.and.be.a('string');
         // expect(forecasts[0].windSpeed).to.exist.and.be.a('number');
-        // expect(forecasts[0].sunRiseAt).to.exist.and.be.a('string');
-        // expect(forecasts[0].sunSetAt).to.exist.and.be.a('string');
-        // expect(forecasts[0].moonRiseAt).to.exist.and.be.a('string');
-        // expect(forecasts[0].moonSetAt).to.exist.and.be.a('string');
+        // expect(forecasts[0].sunRiseAt).to.exist.and.be.a('date');
+        // expect(forecasts[0].sunSetAt).to.exist.and.be.a('date');
+        // expect(forecasts[0].moonRiseAt).to.exist.and.be.a('date');
+        // expect(forecasts[0].moonSetAt).to.exist.and.be.a('date');
         expect(forecasts[0].present).to.be.true;
         done(null, forecasts);
       })
