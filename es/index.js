@@ -6,6 +6,7 @@ import {
 } from '@lykmapipo/common';
 import { get as get$1, all } from '@lykmapipo/http-client';
 import { map, toNumber, trim, find, values, get } from 'lodash';
+import moment from 'moment';
 
 const KNOWN_CITIES = [
   '1183:Herat',
@@ -3015,12 +3016,63 @@ const findCity = (optns) => {
 };
 
 /**
+ * @function parseTime
+ * @name parseTime
+ * @description Parse and normalize time string to date
+ * @param {Date} date Valid base date
+ * @param {string} time Valid time string
+ * @param {string} [separator=':'] Time string separator
+ * @returns {Date | undefined} normalized date time in UTC
+ * @author lally elias <lallyelias87@mail.com>
+ * @license MIT
+ * @since 0.3.0
+ * @version 0.2.0
+ * @static
+ * @public
+ * @example
+ *
+ * const date = '2020-09-08T00:00:00.000Z';
+ * const time = '06:20';
+ * parseTime(date, time);
+ * // => '2020-09-07T06:20:00.000Z'
+ */
+const parseTime = (date, time, separator = ':') => {
+  // ensure date & time
+  if (isNotValue(date) || isNotValue(time)) {
+    return undefined;
+  }
+
+  // create base date moment
+  let baseMoment = moment.utc(date);
+  if (isNotValue(baseMoment.valueOf())) {
+    return undefined;
+  }
+
+  // obtain hour and minutes from time string
+  const [hours, minutes] = time.split(separator);
+  if (isNotValue(hours) || isNotValue(minutes)) {
+    return undefined;
+  }
+
+  // set hours and minutes to base moment
+  baseMoment = baseMoment.hours(hours).minutes(minutes);
+
+  // derive date time
+  const derivedDate = isNotValue(baseMoment.valueOf())
+    ? undefined
+    : baseMoment.toDate();
+
+  // return derived date time
+  return derivedDate;
+};
+
+/**
  * @function normalizePresentForecast
  * @name normalizePresentForecast
  * @description Normalize present city forecast
  * @param {object} forecast Valid present forecast
  * @param {object} city Valid city details
- * @returns {object} normalize present city forecast
+ * @returns {object} normalized present city forecast
  * @author lally elias <lallyelias87@mail.com>
  * @license MIT
  * @since 0.1.0
@@ -3048,17 +3100,19 @@ const normalizePresentForecast = (forecast, city) => {
   });
 
   // normalize & convert
+  const date = parseDate(get(presentForecast, 'issue'), 'YYYYMMDD');
   presentForecast = mergeObjects(presentCity, {
-    date: parseDate(get(presentForecast, 'issue'), 'YYYYMMDDHH'),
+    date,
+    issuedAt: parseDate(get(presentForecast, 'issue'), 'YYYYMMDDHH'),
     weather: get(presentForecast, 'wxdesc'),
     temperature: toNumber(get(presentForecast, 'temp')), //= > °C
     relativeHumidity: toNumber(get(presentForecast, 'rh')),
     windDirection: get(presentForecast, 'wd'),
     windSpeed: (toNumber(get(presentForecast, 'ws')) * 18) / 5, //= > km/h
-    sunRiseAt: get(presentForecast, 'sunrise'),
-    sunSetAt: get(presentForecast, 'sunset'),
-    moonRiseAt: get(presentForecast, 'moonrise'),
-    moonSetAt: get(presentForecast, 'moonset'),
+    sunRiseAt: parseTime(date, get(presentForecast, 'sunrise')),
+    sunSetAt: parseTime(date, get(presentForecast, 'sunset')),
+    moonRiseAt: parseTime(date, get(presentForecast, 'moonrise')),
+    moonSetAt: parseTime(date, get(presentForecast, 'moonset')),
     present: true,
   });
 
@@ -3072,7 +3126,7 @@ const normalizePresentForecast = (forecast, city) => {
  * @description Normalize present city forecast
  * @param {object} forecasts Valid week forecasts
  * @param {object} city Valid city details
- * @returns {object[]} normalize week city forecast
+ * @returns {object[]} normalized week city forecast
  * @author lally elias <lallyelias87@mail.com>
  * @license MIT
  * @since 0.1.0
@@ -3090,7 +3144,7 @@ const normalizeWeekForecasts = (forecasts, city) => {
   // collect found week forecasts
   const {
     city: {
-      forecast: { forecastDay },
+      forecast: { issueDate, forecastDay },
     },
   } = mergeObjects({ forecast: { forecastDay: [] } }, forecasts);
   const weekForecasts = compact([].concat(forecastDay));
@@ -3100,8 +3154,10 @@ const normalizeWeekForecasts = (forecasts, city) => {
 
   // normalize & convert
   const cityWeekForecasts = map(weekForecasts, (forecast) => {
+    const date = parseDate(get(forecast, 'forecastDate'), 'YYYY-MM-DD');
     return mergeObjects(presentCity, {
-      date: parseDate(get(forecast, 'forecastDate'), 'YYYY-MM-DD'),
+      date,
+      issuedAt: parseDate(issueDate, 'YYYY-MM-DD HH:mm:ss'),
       weather: get(forecast, 'weather'),
       temperature: toNumber(get(forecast, 'temp')), //= > °C
       minimumTemperature: toNumber(get(forecast, 'minTemp')), //= > °C
@@ -3109,10 +3165,10 @@ const normalizeWeekForecasts = (forecasts, city) => {
       relativeHumidity: toNumber(get(forecast, 'rh')),
       windDirection: get(forecast, 'wd'),
       windSpeed: (toNumber(get(forecast, 'ws')) * 18) / 5, //= > km/h
-      sunRiseAt: get(forecast, 'sunrise'),
-      sunSetAt: get(forecast, 'sunset'),
-      moonRiseAt: get(forecast, 'moonrise'),
-      moonSetAt: get(forecast, 'moonset'),
+      sunRiseAt: parseTime(date, get(forecast, 'sunrise')),
+      sunSetAt: parseTime(date, get(forecast, 'sunset')),
+      moonRiseAt: parseTime(date, get(forecast, 'moonrise')),
+      moonSetAt: parseTime(date, get(forecast, 'moonset')),
       present: false,
     });
   });
@@ -3124,11 +3180,11 @@ const normalizeWeekForecasts = (forecasts, city) => {
 /**
  * @function fetchPresentForecast
  * @name fetchPresentForecast
- * @description Fetch present forecast of a given city
+ * @description Fetch present forecast of a given city;
  * @param {object} optns Valid options
  * @param {string} optns.city Valid city name
- * @returns {Promise} promise resolve with present forecast on success
- * or error on failure.
+ * @returns {Promise.<object | Error>} promise resolve with present forecast
+ * on success or error on failure.
  * @author lally elias <lallyelias87@mail.com>
  * @license MIT
  * @since 0.1.0
@@ -3173,7 +3229,7 @@ const fetchPresentForecast = (optns) => {
  * @description Fetch week forecasts of a given city
  * @param {object} optns Valid options
  * @param {string} optns.city Valid city name
- * @returns {Promise} promise resolve with week forecasts on success
+ * @returns {Promise.<object[] | Error>} promise resolve with week forecasts on success
  * or error on failure.
  * @author lally elias <lallyelias87@mail.com>
  * @license MIT
@@ -3220,7 +3276,7 @@ const fetchWeekForecasts = (optns) => {
  * @description Fetch present and week forecasts of a given city
  * @param {object} optns Valid options
  * @param {string} optns.city Valid city name
- * @returns {Promise} promise resolve with forecasts on success
+ * @returns {Promise.<object[] | Error>} promise resolve with forecasts on success
  * or error on failure.
  * @author lally elias <lallyelias87@mail.com>
  * @license MIT

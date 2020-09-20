@@ -1,6 +1,6 @@
 #### fetchPresentForecast(optns)
 
-Fetch present forecast of a given city
+Fetch present forecast of a given city;
 
 ##### Parameters
 
@@ -21,7 +21,7 @@ fetchPresentForecast(optns)
 
 ##### Returns
 
-- `Promise` promise resolve with present forecast on success or error on failure.
+- `Promise.&lt;object|Error&gt;` promise resolve with present forecast on success or error on failure.
 
 #### fetchWeekForecasts(optns)
 
@@ -46,7 +46,7 @@ fetchWeekForecasts(optns)
 
 ##### Returns
 
-- `Promise` promise resolve with week forecasts on success or error on failure.
+- `Promise.&lt;Array.&lt;object&gt;|Error&gt;` promise resolve with week forecasts on success or error on failure.
 
 #### fetchForecasts(optns)
 
@@ -71,6 +71,6 @@ fetchForecasts(optns)
 
 ##### Returns
 
-- `Promise` promise resolve with forecasts on success or error on failure.
+- `Promise.&lt;Array.&lt;object&gt;|Error&gt;` promise resolve with forecasts on success or error on failure.
 
 _Documentation generated with [doxdox](https://github.com/neogeek/doxdox)._

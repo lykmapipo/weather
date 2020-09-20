@@ -1,3 +1,25 @@
+#### 0.3.0 (2020-09-20)
+
+##### Documentation Changes
+
+- **readme:**
+  - describe returned forecast schema ([632cb5e0](https://github.com/lykmapipo/weather/commit/632cb5e06a04a881fe347b55e165b3420d0327bd))
+  - describe returned forecast schema ([a5f263ce](https://github.com/lykmapipo/weather/commit/a5f263ce1466ebfd279f4c1b837adefaf5277a0e))
+  - update run example guide ([77a92fe7](https://github.com/lykmapipo/weather/commit/77a92fe7a2e9c5cf8720288b8b51eb699cd12bab))
+
+##### New Features
+
+- **utils:** add issued time on normalized forecast ([d0d588b4](https://github.com/lykmapipo/weather/commit/d0d588b47f9da767c09c85301eea01a1e52c0cfa))
+
+##### Refactors
+
+- **utils:** improve forecast schema ([ae7362e5](https://github.com/lykmapipo/weather/commit/ae7362e5bbffcc6a18c3b0c6f39e6c44bc9fc3a5))
+
+##### Code Style Changes
+
+- improve jsdocs ([d301ec63](https://github.com/lykmapipo/weather/commit/d301ec63c7d668e962bf5904be56ceef8aa1b37e))
+- improve jsdocs ([a4aa94ef](https://github.com/lykmapipo/weather/commit/a4aa94efc62b467a8a14f39c0024633eceb52127))
+
 #### 0.2.0 (2020-09-17)
 
 ##### Chores
