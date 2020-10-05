@@ -1,3 +1,9 @@
+#### 0.3.2 (2020-10-05)
+
+##### Chores
+
+- **deps:** force latest version & audit fix ([d0512ac0](https://github.com/lykmapipo/weather/commit/d0512ac05dbce223134661bb0a88a4edbed946ee))
+
 #### 0.3.1 (2020-09-23)
 
 #### 0.3.0 (2020-09-20)
