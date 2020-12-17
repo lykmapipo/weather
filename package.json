@@ -1,6 +1,6 @@
 {
   "name": "@lykmapipo/weather",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Helpers to fetch weather information from well know sources",
   "main": "lib/index.js",
   "module": "es/index.js",
