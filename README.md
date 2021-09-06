@@ -1,6 +1,6 @@
 # weather
 
-[![Build Status](https://travis-ci.org/lykmapipo/weather.svg?branch=master)](https://travis-ci.org/lykmapipo/weather)
+[![Build Status](https://app.travis-ci.com/lykmapipo/weather.svg?branch=master)](https://app.travis-ci.com/lykmapipo/weather)
 [![Dependencies Status](https://david-dm.org/lykmapipo/weather.svg)](https://david-dm.org/lykmapipo/weather)
 [![Coverage Status](https://coveralls.io/repos/github/lykmapipo/weather/badge.svg?branch=master)](https://coveralls.io/github/lykmapipo/weather?branch=master)
 [![GitHub License](https://img.shields.io/github/license/lykmapipo/weather)](https://github.com/lykmapipo/weather/blob/develop/LICENSE)
