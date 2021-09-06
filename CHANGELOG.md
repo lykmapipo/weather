@@ -1,3 +1,13 @@
+#### 0.3.8 (2021-09-06)
+
+##### Chores
+
+* **deps:**  force latest version & audit fix ([ed354745](https://github.com/lykmapipo/weather/commit/ed354745e9ac1e4605ea724668308ab370f5a74e))
+
+##### Refactors
+
+* **deps:**  use latest version ([79f88252](https://github.com/lykmapipo/weather/commit/79f882523541a9916f8d72daec59c449faeac1bc))
+
 #### 0.3.7 (2021-02-10)
 
 #### 0.3.6 (2021-01-06)
